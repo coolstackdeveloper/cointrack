@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <div class="nav-link active">{{ symbol }}</div>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row">Price</th>
+          <td>{{ price?.value | number: "1.2-4" }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Currency</th>
+          <td>{{ price?.currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Change (%)</th>
+          <td colspan="2">{{ changePercent | number: "1.2-4" }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Rate</th>
+          <td colspan="2">{{ price?.rate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

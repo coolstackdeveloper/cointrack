@@ -1,0 +1,16 @@
+<label class="d-flex justify-content-center my-2">Select preferred coin</label>
+<ul class="list-group settings">
+  <li *ngFor="let coin of coins" class="list-group-item settings__coin">
+    <input
+      type="radio"
+      name="coin"
+      [value]="coin.symbol"
+      (change)="changeCoinSetting($event)"
+      [checked]="coinSetting?.symbol === coin.symbol"
+    />
+    <label>
+      {{ coin.symbol }} ({{ coin.name }}) -
+      {{ (coinSetting?.symbol === coin.symbol) }}
+    </label>
+  </li>
+</ul>
