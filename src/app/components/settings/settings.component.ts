@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { EMPTY, Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Coin } from 'src/app/models/coin';
 import { CoinSetting } from 'src/app/models/coinSetting';
@@ -10,12 +11,15 @@ import { CoinTrackApiService } from 'src/app/services/cointrack-api.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
   coins: Array<Coin> = [];
   coinSetting?: CoinSetting;
   coinSettingSubject: Subject<CoinSetting> = new Subject<CoinSetting>();
 
-  constructor(private cointrackApiService: CoinTrackApiService) {}
+  constructor(
+    private cointrackApiService: CoinTrackApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.coinSettingSubject.subscribe(
@@ -33,18 +37,19 @@ export class SettingsComponent implements OnInit {
       );
   }
 
+  ngOnDestroy(): void {
+    // TODO - unsubscribe from subscriptions
+  }
+
   changeCoinSetting(event: any) {
     this.cointrackApiService
       .updateCoinSetting({ symbol: event.target.value })
       .pipe(
-        switchMap(() => EMPTY),
+        switchMap(() => this.cointrackApiService.getCoinSetting()),
         catchError(() => this.cointrackApiService.getCoinSetting())
       )
-      .subscribe((coinSetting: CoinSetting) =>
-        {
-          console.log(this.coinSetting?.symbol);
-          this.coinSettingSubject.next(coinSetting);
-        }
-      );
+      .subscribe(() => {
+        this.router.navigateByUrl('/');
+      });
   }
 }

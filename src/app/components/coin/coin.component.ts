@@ -2,10 +2,11 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import {
   bufferCount,
   distinctUntilChanged,
@@ -20,25 +21,30 @@ import { CoinTrackApiService } from 'src/app/services/cointrack-api.service';
   templateUrl: './coin.component.html',
   styleUrls: ['./coin.component.scss'],
 })
-export class CoinComponent implements OnInit, OnChanges {
+export class CoinComponent implements OnInit, OnChanges, OnDestroy {
   @Input() symbol: string = '';
   price?: CoinPrice;
   changePercent?: number;
+  priceSubscription?: Subscription;
 
   constructor(private cointrackApiService: CoinTrackApiService) {}
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.priceSubscription?.unsubscribe();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (!!changes.symbol.currentValue) {
-      const rates = interval(1000).pipe(
+      const prices$ = interval(1000).pipe(
         switchMap(() =>
           this.cointrackApiService.getCoinPrice(changes.symbol.currentValue)
         ),
         map((coinPrice: CoinPrice) => coinPrice)
       );
 
-      rates
+      this.priceSubscription = prices$
         .pipe(
           distinctUntilChanged(
             (x: CoinPrice, y: CoinPrice) => x.value === y.value

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CoinSetting } from 'src/app/models/coinSetting';
 import { CoinTrackApiService } from 'src/app/services/cointrack-api.service';
 
@@ -9,14 +10,11 @@ import { CoinTrackApiService } from 'src/app/services/cointrack-api.service';
 })
 export class DashboardComponent implements OnInit {
   symbol: string = '';
+  coinSetting$?: Observable<CoinSetting>;
 
   constructor(private cointrackApiService: CoinTrackApiService) {}
 
   ngOnInit(): void {
-    this.cointrackApiService
-      .getCoinSetting()
-      .subscribe(
-        (coinSetting: CoinSetting) => (this.symbol = coinSetting.symbol)
-      );
+    this.coinSetting$ = this.cointrackApiService.getCoinSetting();
   }
 }

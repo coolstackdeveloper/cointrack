@@ -11,19 +11,21 @@
       <tbody>
         <tr>
           <th scope="row">Price</th>
-          <td>{{ price?.value | number: "1.2-4" }}</td>
+          <td>{{ (price?.value | number: "1.2-4") || "..." }}</td>
         </tr>
         <tr>
           <th scope="row">Currency</th>
-          <td>{{ price?.currency }}</td>
+          <td>{{ price?.currency || "..." }}</td>
         </tr>
         <tr>
           <th scope="row">Change (%)</th>
-          <td colspan="2">{{ changePercent | number: "1.2-4" }}</td>
+          <td colspan="2">
+            {{ (changePercent | number: "1.2-4") || "..." }}
+          </td>
         </tr>
         <tr>
           <th scope="row">Rate</th>
-          <td colspan="2">{{ price?.rate }}</td>
+          <td colspan="2">{{ price?.rate || "..." }}</td>
         </tr>
       </tbody>
     </table>
