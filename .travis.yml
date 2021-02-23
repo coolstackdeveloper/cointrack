@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+- 12
+install:
+- npm install
+script:
+- echo "skipping tests"
+deploy:
+  app: stackpond-cointrack
+  provider: heroku
+  api_key:
+    secure: GRhHo3Q+5X0TcjaWTlfVNL1+xEtjIllW0LiJQEPEoyznLAi3wk+EZBzEYTuN45NgyEoqaYDp904n7E0gby9xG6+EoNJmP/+FCJd+9veyd3VSGDrw/yrvoiXjB3x3wen7BPg5iU82fKCD03JYm4mTyxpDlCNee08fboJWBTLXJY9spOrU2s2GjfGuFHpycBAKGCfL6R93VSrDYq+sIU78UA/acHjEb+n1rvGUB9kjIZ94s8ImAcgjiEkHvbkvlIuXYkC9OL5y4x3a+HwH7FWpzbfVuqX7wmnkF4XtnLm7ydM5Bd+HZmaoxuf76egHqeE1nb7yECQ8RQGp2C68MTmk9iLzvd2O5GnVBE7CUQn/sBQf9mJF0H8m/VeI7GyBCR40b/9zxPg078IBD220ik+IPdcgF0AS4au254o6xnrl/A6C8Oql8E7gSh4orYjH51auPLW+oh2ZKpxZeN0zuhykMdwml+LUkwVHiaenursrdADVBVyK3qp/iEfkPvcx4dg/IOoQgqbDDemZ1lUXK0VENWUvNM0+q34fIhUWDLZ4fNniZa6HLLoEJjbZVw9Kh2kp5r+GqWfi/BBvei7hp2qVGJNaZIINFNgRiVKvXOSuggSj35jdfHlaJ9stlLoLMeT5gcDB2GX0fh5qC27jfjzREMDKufgoemnGTerKVn89pgQ=
+  on:
+    branch: main
