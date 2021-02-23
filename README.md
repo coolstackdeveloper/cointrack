@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.com/stackpond/cointrack.svg?token=ZiEpqMrtCtoYozqmY1kh&branch=main)](https://travis-ci.com/stackpond/cointrack)
 
-
 # CoinTrack
 
 Angular app to display the cryptocurrency ask price and change.
